@@ -212,12 +212,12 @@ fn main() {
 
     let frame_time = 1000 / 60;
     let mut timer = time::Instant::now();
-    el.run(move |event_loop, _, control_flow| {
+    el.run(move |event, _, control_flow| {
         if timer.elapsed().as_millis() > frame_time {
             renderer.draw();
             timer = time::Instant::now();
         }
-        *control_flow = match event_loop {
+        *control_flow = match event {
             Event::WindowEvent { event, .. } => window_events(event, &mut renderer),
             Event::DeviceEvent { event, .. } => device_events(event, &mut renderer),
             _ => ControlFlow::Poll,
